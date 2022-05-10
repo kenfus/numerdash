@@ -832,8 +832,8 @@ def show_content():
 # main body
 # various configuration setting
 app_opt = {
-           'performance_overview' : 'Performance Overview',
-           'stake_overview': 'Stake Overview',
+            'stake_overview': 'Stake Overview',
+           'performance_overview' : 'Performance Overview'
            # 'app_setting':''
            }
 
