@@ -1,8 +1,5 @@
 {
   "benchmark": [
-    "kenfus_new_7_153", "kenfus_new_2_54", "kenfus_new_3_425","kenfus_new_3_522", "kenfus_new_2_486", "kenfus_new_4_119_rem", "kenfus_new_5_391_rem",
-    "kenfus_new_2_644", "kenfus_t_400", "kenfus_new_4_119", "kenfus_new_5_391", "kenfus_new_3_461_rem", "kenfus_new_3_461", 
-    "kenfus_new_2_774","kenfus_new_3_249", "kenfus_new_2_774_rem", "kenfus_new_3_249_rem", "kenfus_new_3_522_rem",
-    "kenfus", "kenfus_2", "kenfus_3", "kenfus_t_400"
+    "kenfus_new_7_153"
   ]
 }
