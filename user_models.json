@@ -1,5 +1,9 @@
 {
   "benchmark": [
+    "kenfus",
+    "kenfus_2",
+    "kenfus_3",
+    "kenfus_4",
     "kenfus_new_7_153",
     "kenfus_new_2_54",
     "kenfus_new_4_119_rem", 
