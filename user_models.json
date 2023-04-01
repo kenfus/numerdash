@@ -1,10 +1,21 @@
 {
   "benchmark": [
-    "kenfus_new_7_153", "kenfus_new_2_54", "kenfus_new_4_119_rem","kenfus_new_2_173",
-    "kenfus_t_400", "kenfus_new_5_391", "kenfus_new_3_461",
-    "kenfus_new_2_774_rem", "kenfus_new_3_249_rem", 
-    "kenfus_new_1_788_rem", "kenfus_new_2_148_rem",
-    "kenfus_2_698", "kenfus_2_882", "kenfus_3_075", "kenfus_3_089", "kenfus_3_113", 
-    "kenfus_3_113_rem", "kenfus_3_089_rem", "kenfus_3_075_rem", "kenfus_2_822_rem", "kenfus_2_698_rem"
+    "kenfus_clear_25",
+    "kenfus_devoted_36",
+    "kenfus_fallen_12",
+    "kenfus_fancy_18",
+    "kenfus_frosty_33",
+    "kenfus_icy_24",
+    "kenfus_peach_31",
+    "kenfus_robust_27",
+    "kenfus_sparkling_34",
+    "kenfus_bright_12",
+    "kenfus_effortless_24",
+    "kenfus_polished_118",
+    "kenfus_rosy_77",
+    "kenfus_sweet_132",
+    "kenfus_tough_111",
+    "kenfus_treasured_75",
+    "kenfus_vivid_86"
   ]
 }
