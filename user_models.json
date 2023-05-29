@@ -1,21 +1,14 @@
 {
   "benchmark": [
-    "kenfus_clear_25",
-    "kenfus_devoted_36",
-    "kenfus_fallen_12",
-    "kenfus_fancy_18",
-    "kenfus_frosty_33",
-    "kenfus_icy_24",
-    "kenfus_peach_31",
-    "kenfus_robust_27",
-    "kenfus_sparkling_34",
-    "kenfus_bright_12",
-    "kenfus_effortless_24",
-    "kenfus_polished_118",
-    "kenfus_rosy_77",
-    "kenfus_sweet_132",
-    "kenfus_tough_111",
-    "kenfus_treasured_75",
-    "kenfus_vivid_86"
+    "kenfus_denim_14",
+    "kenfus_drawn_15",
+    "kenfus_eager_45",
+    "kenfus_fearless_1",
+    "kenfus_noble_2",
+    "kenfus_visionary_29",
+    "kenfus_kind_10",
+    "kenfus_silvery_9",
+    "kenfus_worldly_11",
+    "kenfus_youthful_19"
   ]
 }

@@ -1,19 +1,25 @@
-import streamlit as st
-import pandas as pd
-import numpy as np
 import os
 import sys
+
+import numpy as np
+import pandas as pd
+import streamlit as st
+
 sys.path.append(os.path.dirname(os.getcwd()))
-from project_tools import project_utils, project_config, numerapi_utils
 import warnings
+
 import plotly.express as px
+
+from project_tools import numerapi_utils, project_config, project_utils
+
 warnings.filterwarnings("ignore")
+import datetime
+import time
+import traceback
+
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import time
-import traceback
-import datetime
 
 st.set_page_config(layout='wide')
 get_benchmark_data = True
@@ -63,25 +69,6 @@ def model_data_picker_bak(values = None):
         model_dict['mcv'] = project_config.MCV_MODELS + project_config.MCV_NEW_MODELS
     return model_dict
 
-
-# to be removed
-def model_fast_picker_bak(models):
-    text_content = '''
-                    fast model picker by CSV string.
-                    example: "model1, model2, model3" 
-                   '''
-    text = st.sidebar.text_area(text_content)
-    result_models = []
-    if len(text)>0:
-        csv_parts = text.split(',')
-        for s in csv_parts:
-            m = s.strip()
-            if m in models:
-                result_models.append(m)
-    return list(dict.fromkeys(result_models))
-
-
-
 def default_model_picker():
     picked_models = {}
     if os.path.isfile('default_models.json'):
@@ -93,26 +80,6 @@ def default_model_picker():
         for key in user_models_dict.keys():
             picked_models[key] = user_models_dict[key]
     return picked_models
-
-
-def model_fast_picker(model_list):
-    text_content = '''
-                    fast model picker by CSV string.
-                    example: "model1, model2, model3" 
-                   '''
-    text = st.sidebar.text_area(text_content)
-    result_models = []
-    if len(text)>0:
-        csv_parts = text.split(',')
-        for s in csv_parts:
-            m = s.strip()
-            if (m  in model_list): #and (m not in preselected_models):
-                result_models.append(m)
-    return list(dict.fromkeys(result_models))
-
-
-
-
 
 
 def generate_round_table(data, row_cts, c, r, sortcol='corrmmc'):
@@ -296,14 +263,12 @@ def data_operation():
         model_dict = default_model_picker()
         for k in model_dict.keys():
             models += model_dict[k]
-    models = models + model_fast_picker(full_model_list)
     if len(models)>0:
-        model_selection = st.multiselect('select models', st.session_state['models'], default=models)
-    suggest_min_round = 182 #latest_round-50
+        model_selection = st.multiselect('select models', models, default=models)
+    suggest_min_round = 182
     min_round, max_round = st.slider('select tournament rounds', 200, latest_round, (suggest_min_round, latest_round), 1)
     roundlist = [i for i in range(max_round, min_round-1, -1)]
     download = st.button('download data of selected models')
-    st.sidebar.subheader('configuration')
     show_info=st.sidebar.checkbox('show background data', value=False)
     # update_numeraiti_data = st.sidebar.checkbox('update numerati data', value=True)
     # update_model_data = st.sidebar.checkbox('update model data', value=True)
@@ -453,11 +418,8 @@ def histtrend():
     data = st.session_state['model_data'].copy()
     models = data['model'].unique().tolist()
     model_selection = []
-    default_models = model_fast_picker(models)
     if len(models)>0:
-        if len(default_models)==0:
-            default_models = [models[0]]
-        model_selection = st.sidebar.multiselect('select models for chart', models, default=default_models)
+        model_selection = st.sidebar.multiselect('select models for chart', models, default=models)
 
     if len(model_selection)>0:
         roundresult_chart(data, model_selection)
@@ -478,7 +440,6 @@ def model_evaluation():
     data = st.session_state['model_data'].copy()
     models = data['model'].unique().tolist()
     model_selection = []
-    default_models = model_fast_picker(models)
     mean_scale = [-0.05, 0.1]
     count_scale = [1, 50]
     sharpe_scale = [-0.2, 2]
@@ -486,9 +447,7 @@ def model_evaluation():
     radar_scale = [0, 5]
 
     if len(models)>0:
-        if len(default_models)==0:
-            default_models = [models[0]]
-        model_selection = st.sidebar.multiselect('select models for chart', models, default=default_models)
+        model_selection = st.sidebar.multiselect('select models for chart', models, default=models)
 
     if len(model_selection)>0:
         round_data = data[data['model'].isin(model_selection)].drop_duplicates(['model', 'roundNumber'],keep='first').reset_index(drop=True)
@@ -699,12 +658,8 @@ def stake_overview():
     for k in model_dict.keys():
         baseline_models += model_dict[k]
 
-    default_models = model_fast_picker(models)
-
     if len(models)>0:
-        # if len(default_models)==0:
-        #     default_models = baseline_models[0]
-        model_selection = st.sidebar.multiselect('select models for chart', models, default=default_models)
+        model_selection = st.sidebar.multiselect('select models for chart', models, default=models)
 
     redownload_data = False
     # download = st.sidebar.button('download stake data')
@@ -808,8 +763,6 @@ def app_setting():
 def performance_overview():
     # st.sidebar.subheader('Choose a Table View')
     select_app = st.sidebar.selectbox("", list(pfm_opt.keys()), index=0, format_func=lambda x: pfm_opt[x])
-    if select_app=='data_op':
-        data_operation()
     if select_app=='liveround_view':
         score_overview()
     if select_app=='metric_view':
@@ -823,7 +776,7 @@ def performance_overview():
 
 def show_content():
     st.sidebar.header('Dashboard Selection')
-    select_app = st.sidebar.selectbox("", list(app_opt.keys()), index=1, format_func=lambda x: app_opt[x])
+    select_app = st.sidebar.selectbox("", list(app_opt.keys()), index=0, format_func=lambda x: app_opt[x])
     if select_app=='performance_overview':
         performance_overview()
     if select_app=='stake_overview':
@@ -842,9 +795,8 @@ app_opt = {
 
 
 pfm_opt = {
-    'data_op': 'Download Score Data',
+    'metric_view':'Metric Overview',    
     'liveround_view': 'Round Overview',
-    'metric_view':'Metric Overview',
     'historic_trend': 'Historic Trend',
     'model_evaluation': 'Model Evaluation',
 }
@@ -972,6 +924,7 @@ if check_session_state('models') is None:
     with st.spinner('updating model list'):
         st.session_state['models'] = numerapi_utils.get_lb_models()
 
+data_operation()
 # debug purpose only
 # show_session_status_info()
 
